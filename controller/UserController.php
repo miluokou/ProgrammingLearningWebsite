@@ -8,8 +8,7 @@ class UserController {
     public  function getRec(){
         $cou= new CourseModel();
         $data = $cou->getRec();
-        require "view/test.php";
+        // var_dump($data);die;
+        // require "./index.php";
     }
-
-
 }

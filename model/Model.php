@@ -21,9 +21,7 @@ class Model{
 	//查询某张表所有数据
 	public function getList($table){
 		$sql = "select * from '$table'";
-		$this->conn->connect();
 		return $this->data = $this->conn->select($sql);
-		$this->conn->close();
 	}
 
 

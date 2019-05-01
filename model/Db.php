@@ -18,14 +18,17 @@ class Db
         'host' => 'localhost', //主机名称
         'port' => '3306',  //端口
         'user' => 'root',  //用户名
-        'pass' => '',  //密码
+        'pass' => 'root',  //密码
         'charset' => 'utf8', //字符集
-        'dbname' => 'test',  //数据库
+        'dbname' => 'web',  //数据库
     );
 
 	//构造函数私有,防止外部实例化
 	private	function __construct(){
-		
+		 //初始化连接参数
+        // $this->dbConfig = array_merge($this->dbConfig,$param);
+        //链接数据库
+        $this->connect();
 	}
 
 	//私有的克隆方法,为了防止在类外通过clone生成另一个对象
@@ -81,6 +84,9 @@ class Db
     		$data[] = $row;
     		}
 	    return $data;
+    }
+    private function  __destruct(){
+        $this->close();
     }
 
 }
