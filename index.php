@@ -35,7 +35,7 @@ $user->$action();
 $cou= new CourseModel();
 $data = $cou->getRec();
 echo '<pre>';
-var_dump($data);die;
+var_dump($data);
 ?>
 
 <script>
