@@ -6,11 +6,11 @@
  * 
  */
 //入口文件，前端请求分发器
+
+require "model/Db.php";
 require "model/Model.php";
 require "model/CourseModel.php";
-require "model/Db.php";
 require "controller/UserController.php";
-// var_dump('123');die;
 
 /*
  * 当用户点击注册，登录或者讨论区再写这个玩意儿
@@ -32,10 +32,15 @@ $user = new $controller();
 $user->$action();
 */
 
-$cou= new CourseModel();
-$data = $cou->getRec();
-echo '<pre>';
-var_dump($data);
+$cm=new CourseModel();
+$data=$cm->getRec();
+echo json_encode($data);
+/*foreach ($data as $value) {
+    echo $value['title']."\n";
+    echo $value['image']."\n";
+}*/
+die;
+
 ?>
 
 <script>
