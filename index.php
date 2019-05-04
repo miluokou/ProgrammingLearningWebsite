@@ -1,7 +1,7 @@
-<!--
-	入口文件
--->
+
 <?php
+ini_set('display_errors','On');
+error_reporting(E_ALL);
 /**
  * 
  */
@@ -33,13 +33,15 @@ $user->$action();
 */
 
 $cm=new CourseModel();
+var_dump('123');die;
+
 $data=$cm->getRec();
 echo json_encode($data);
 /*foreach ($data as $value) {
     echo $value['title']."\n";
     echo $value['image']."\n";
 }*/
-die;
+// die;
 
 ?>
 

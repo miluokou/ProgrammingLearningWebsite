@@ -33,7 +33,7 @@
         }
         
         public function test(){
-        	$this->conn = new mysqli('localhost','root','','web');
+        	$this->conn = new mysqli('localhost','root','root','web');
         	return $this->conn;
         }
         
