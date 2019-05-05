@@ -12,10 +12,5 @@
 			return $this->data = $this->conn->select($sql);
 		}
 	
-	
-	
-	
-	
-	
 	}
 ?>

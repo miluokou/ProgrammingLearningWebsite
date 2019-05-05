@@ -33,10 +33,9 @@ $user->$action();
 */
 
 $cm=new CourseModel();
-var_dump('123');die;
 
-$data=$cm->getRec();
-echo json_encode($data);
+// $data=$cm->getRec();
+// echo json_encode($data);
 /*foreach ($data as $value) {
     echo $value['title']."\n";
     echo $value['image']."\n";
@@ -90,7 +89,7 @@ echo json_encode($data);
         </script>
         <script type="text/javascript" src="https://acstatic-dun.126.net/tool.min.js">
         </script>
-        <script type="text/javascript" src = './js/origin.js'></script>
+
         <script>
             if ("undefined" == typeof EDU) EDU = function() {
                 var e = {},
@@ -363,88 +362,10 @@ echo json_encode($data);
                     },
                     // 自定义设置采集的元素的路径，需返回该元素的path，
                     // 该路径是热力图渲染时查找元素所需，请正确设置
-                    set_collect_element_path: function(targetElement, heatmap) {
-                        try {
-                            var pathMap = {
-                                "a:nth-child": "ANC",
-                                "aside:nth-child": "ASNC",
-                                "article:nth-child": "ATNC",
-                                "button:nth-child": "BNC",
-                                "code:nth-child": "CDNC",
-                                "canvas:nth-child": "CVNC",
-                                "div:nth-child": "DVNC",
-                                "footer:nth-child": "FTNC",
-                                "form:nth-child": "FMNC",
-                                "frame:nth-child": "FRNC",
-                                "header:nth-child": "HDNC",
-                                "iframe:nth-child": "IFNC",
-                                "img:nth-child": "IGNC",
-                                "input:nth-child": "IPNC",
-                                "label:nth-child": "LBNC",
-                                "li:nth-child": "LINC",
-                                "p:nth-child": "PNC",
-                                "section:nth-child": "SCNC",
-                                "span:nth-child": "SPNC",
-                                "table:nth-child": "TBNC",
-                                "tbody:nth-child": "TYNC",
-                                "td:nth-child": "TDNC",
-                                "textarea:nth-child": "TANC",
-                                "tfoot:nth-child": "TFNC",
-                                "th:nth-child": "THNC",
-                                "ul:nth-child": "ULNC"
-                            }
-                            var selector = function(targetElement) {
-                                var i = (targetElement.parentNode && 9 == targetElement.parentNode.nodeType) ? -1 : heatmap.getDomIndex(targetElement);
-                                var pathStr = targetElement.tagName.toLowerCase() + (~i ? ':nth-child(' + (i + 1) + ')': '');
-                                for (let key in pathMap) {
-                                    var re = new RegExp(key, 'g');
-                                    pathStr = pathStr.replace(re, pathMap[key]);
-                                }
-                                return pathStr;
-                            };
-                            var getDomSelector = function(targetElement, arr) {
-                                if (!targetElement || !targetElement.parentNode || !targetElement.parentNode.children) {
-                                    return false;
-                                }
-                                arr = arr && arr.join ? arr: [];
-                                var name = targetElement.nodeName.toLowerCase();
-                                if (!targetElement || name === 'body' || 1 != targetElement.nodeType) {
-                                    arr.unshift('body');
-                                    return arr.join(' > ');
-                                }
-                                arr.unshift(selector(targetElement));
-                                return getDomSelector(targetElement.parentNode, arr);
-                            }
-                            return getDomSelector(targetElement);
-                        } catch(error) {}
-                    }
+
                 }
-            }) document.addEventListener('click',
-            function(e) {
-                var $node = e.target;
-                try {
-                    if ($node.classList.contains('ga-click')) {
-                        //替换打点
-                        var params = getGaParams($node);
-                        console.log('hubble打点成功');
-                        DATracker.track(params.data_cate, params);
-                        return;
-                    }
-                    var $parent = $node.parentNode
-                    while ($parent.nodeName != 'BODY') {
-                        if ($parent.classList.contains('ga-click')) {
-                            var _params = getGaParams($parent);
-                            console.log('hubble打点成功');
-                            DATracker.track(_params.data_cate, _params);
-                            return;
-                        } else {
-                            $parent = $parent.parentNode;
-                        }
-                    }
-                } catch(e) {
-                    console.log(e);
-                }
-            });
+            })
+
             function getGaParams(node) {
                 var obj = {};
                 obj.user_id = window.webUser && window.webUser.id;
@@ -785,277 +706,10 @@ echo json_encode($data);
                             <div class="m-slideTop-container">
                                 <div class="m-slideTop-slideBox" id="j-slideTop-slideBox">
                                 </div>
-                                <div class="m-slideTop-cateFunc">
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="计算机0">
-                                            <a href="category/computer.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-computer">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        计算机
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="经济学1">
-                                            <a href="category/ECO.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-economics">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        经济学
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="管理2">
-                                            <a href="category/management%20theory.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-management">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        管理
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="考研3">
-                                            <a href="https://kaoyan.icourse163.org/course/index.htm" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-scholar">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        考研
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="理工补习4">
-                                            <a href="topics/houboshimooc_kysp.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-teaching-method">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        理工补习
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="四六级5">
-                                            <a href="https://kaoyan.icourse163.org/course/category/siliuji.htm" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-post">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        四六级
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="心理学6">
-                                            <a href="category/psychology.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-psychology">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        心理学
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="外语7">
-                                            <a href="category/foreign-language.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-foreign-language">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        外语
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="更多8">
-                                            <a href="" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-more2">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        更多
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="文学文化9">
-                                            <a href="category/literature.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-literature">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        文学文化
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="艺术设计10">
-                                            <a href="category/art-design.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-art">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        艺术设计
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="历史11">
-                                            <a href="category/historiography.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-history">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        历史
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="哲学12">
-                                            <a href="category/philosophy.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-philosophy">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        哲学
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="法学13">
-                                            <a href="category/law.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-law">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        法学
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="工学14">
-                                            <a href="category/engineering.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-engineering">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        工学
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="理学15">
-                                            <a href="category/science.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-science">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        理学
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="医药卫生16">
-                                            <a href="category/biomedicine.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-biomedicine">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        医药卫生
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="农林园艺17">
-                                            <a href="category/agriculture.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-agriculture">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        农林园艺
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="m-slideTop-cateFunc-f">
-                                        <div class="u-cateItem-container" data-cate="首页_头部导航" data-action="分类点击"
-                                        data-label="教育教学18">
-                                            <a href="category/teaching-method.html" target="_blank">
-                                                <div class="u-cateItem-icon u-icon-teaching-method">
-                                                </div>
-                                                <div class="u-cateItem-txt">
-                                                    <span class="f-thide">
-                                                        教育教学
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="m-slideTop-personFunc">
-                                    <div class="m-slideTop-personFunc-f">
-                                        <div class="u-person-container">
+                                
+                                <!-- <div class="m-slideTop-personFunc"> -->
+                                    <!-- <div class="m-slideTop-personFunc-f"> -->
+                                        <!-- <div class="u-person-container">
                                             <div class="u-person-title">
                                                 <span>
                                                     免费学习名校名师的精品课程
@@ -1074,9 +728,9 @@ echo json_encode($data);
                                                     网易和高等教育出版社出品
                                                 </span>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        </div> -->
+                                    <!-- </div> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
